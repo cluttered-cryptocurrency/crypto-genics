@@ -5,6 +5,8 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
+import java.util.Objects;
+
 @Entity("summaries")
 public class MarketSummary {
 
@@ -45,11 +47,9 @@ public class MarketSummary {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
+        if(Objects.isNull(obj)) return false;
         final MarketSummary that = (MarketSummary) obj;
-        return id.equals(that.id);
+        return Objects.equals(this.id, that.id);
     }
 
     @Override
