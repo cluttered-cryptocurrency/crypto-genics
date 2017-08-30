@@ -29,9 +29,9 @@ public interface MarketManager {
 
     BigDecimal getMinimumTrade();
 
-    BigDecimal getLastPrice();
+    MarketSummary getLastSummary();
 
-    void setLastPrice(final BigDecimal lastPrice);
+    void setLastSummary(final MarketSummary lastSummary);
 
     void performBuyAction();
 
@@ -56,7 +56,7 @@ public interface MarketManager {
     EvictingQueue<Double> getInputsQueue();
 
     default Action fire(final MarketSummary input) {
-        setLastPrice(BigDecimal.valueOf(input.getLast()));
+        setLastSummary(input);
 
         final EvictingQueue<Double> inputsQueue = getInputsQueue();
         inputsQueue.add(input.getLast());
@@ -85,7 +85,8 @@ public interface MarketManager {
                 break;
             case SELL:
                 incrementSellAttempts();
-                if (getShares().multiply(getLastPrice()).compareTo(getMinimumTrade()) < 0) {
+                final BigDecimal lastBid = BigDecimal.valueOf(getLastSummary().getBid());
+                if (getShares().multiply(lastBid).compareTo(getMinimumTrade()) < 0) {
                     LOG.warn("Less than minimum required to perform sell");
                     return;
                 }
