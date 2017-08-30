@@ -1,5 +1,4 @@
-# crypto-genics
-CryptoGenics Library
+# CryptoGenics Library
 
 [![JitPack](https://img.shields.io/badge/JitPack-master-green.svg)](https://jitpack.io/#cluttered-cryptocurrency/crypto-genics/master-SNAPSHOT)
 
