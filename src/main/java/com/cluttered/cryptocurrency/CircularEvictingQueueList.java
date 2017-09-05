@@ -1,7 +1,5 @@
 package com.cluttered.cryptocurrency;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.*;
 
 import static java.lang.Math.min;
@@ -61,117 +59,117 @@ public class CircularEvictingQueueList<E> implements Queue<E>, List<E> {
 
     @Override
     public boolean contains(final Object object) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Object[] toArray() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean remove(final Object object) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean containsAll(final Collection<?> c) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean addAll(final Collection<? extends E> c) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean removeAll(final Collection<?> c) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean retainAll(final Collection<?> c) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E get(final int index) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E set(final int index, final E element) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void add(final int index, final E element) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E remove(final int index) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int indexOf(final Object o) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int lastIndexOf(final Object o) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public ListIterator<E> listIterator() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public ListIterator<E> listIterator(final int index) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<E> subList(final int fromIndex, final int toIndex) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean offer(final E e) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E remove() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E poll() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E element() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E peek() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     private class CircularEvictingQueueListIterator implements Iterator<E> {
