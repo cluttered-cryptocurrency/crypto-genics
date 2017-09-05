@@ -1,8 +1,6 @@
 package com.cluttered.cryptocurrency;
 
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
-import com.google.common.collect.EvictingQueue;
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,19 +51,18 @@ public interface MarketManager {
 
     void incrementBuyHolds();
 
-    EvictingQueue<Double> getInputsQueue();
+    CircularEvictingQueueList<Double> getInputsQueue();
 
     default Action fire(final MarketSummary input) {
         setLastSummary(input);
 
-        final EvictingQueue<Double> inputsQueue = getInputsQueue();
-        inputsQueue.add(input.getLast());
+        final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
+        inputsQueueList.add(input.getLast());
 
-        if(inputsQueue.remainingCapacity() > 0)
+        if(!inputsQueueList.isFull())
             return HOLD;
 
-        final List<Double> inputs = Lists.newArrayList(inputsQueue);
-        final List<Double> outputs = getNeuralNetwork().fire(inputs);
+        final List<Double> outputs = getNeuralNetwork().fire(inputsQueueList);
         return Action.determine(outputs);
     }
 
