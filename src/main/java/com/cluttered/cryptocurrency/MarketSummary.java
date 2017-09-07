@@ -21,6 +21,10 @@ public class MarketSummary {
     @Property("Ask")
     private Double ask;
 
+    public MarketSummary() {
+        // Morphia Constructor
+    }
+
     public MarketSummary(final ObjectId id, final Double last,
                          final Double bid, final Double ask) {
         this.id = id;
