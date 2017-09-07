@@ -7,7 +7,7 @@ import static java.lang.Math.min;
 public class CircularEvictingQueueList<E> implements Queue<E>, List<E> {
 
     private final int capacity;
-    private final List<E> delegateList;
+    private final ArrayList<E> delegateList;
 
     private int size;
     private int headIndex;
@@ -50,6 +50,11 @@ public class CircularEvictingQueueList<E> implements Queue<E>, List<E> {
     @Override
     public void clear() {
         headIndex = nextIndex = size = 0;
+    }
+
+    @Override
+    public E get(final int index) {
+        return delegateList.get((headIndex + index) % size);
     }
 
     @Override
@@ -99,11 +104,6 @@ public class CircularEvictingQueueList<E> implements Queue<E>, List<E> {
 
     @Override
     public boolean retainAll(final Collection<?> c) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public E get(final int index) {
         throw new UnsupportedOperationException();
     }
 
@@ -174,25 +174,20 @@ public class CircularEvictingQueueList<E> implements Queue<E>, List<E> {
 
     private class CircularEvictingQueueListIterator implements Iterator<E> {
 
-        private boolean first;
         private int cursor;
 
         private CircularEvictingQueueListIterator() {
-            first = true;
-            cursor = headIndex;
+            cursor = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return (first && !isEmpty()) || cursor != nextIndex;
+            return cursor != size;
         }
 
         @Override
         public E next() {
-            final E element = delegateList.get(cursor);
-            cursor = (cursor + 1) % capacity;
-            first = false;
-            return element;
+            return get(cursor++);
         }
     }
 }
