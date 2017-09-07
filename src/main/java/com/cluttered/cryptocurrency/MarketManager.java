@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.cluttered.cryptocurrency.Action.BUY;
 import static com.cluttered.cryptocurrency.Action.HOLD;
+import static com.cluttered.cryptocurrency.Action.SELL;
 
 public interface MarketManager {
 
@@ -71,8 +73,7 @@ public interface MarketManager {
             case BUY:
                 incrementBuyAttempts();
                 if (getBalance().compareTo(getMinimumTrade()) < 0) {
-                    LOG.warn("Less than minimum required to perform buy");
-                    return;
+                    throw new LessThanMinimum(BUY);
                 }
                 // TODO: check if can purchase more shares
                 if (getShares().compareTo(BigDecimal.ZERO) == 0) {
@@ -84,8 +85,7 @@ public interface MarketManager {
                 incrementSellAttempts();
                 final BigDecimal lastBid = BigDecimal.valueOf(getLastSummary().getBid());
                 if (getShares().multiply(lastBid).compareTo(getMinimumTrade()) < 0) {
-                    LOG.warn("Less than minimum required to perform sell");
-                    return;
+                    throw new LessThanMinimum(SELL);
                 }
                 if(getShares().compareTo(BigDecimal.ZERO) > 0) {
                     incrementSells();
