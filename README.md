@@ -6,7 +6,7 @@
 [![Java: 8](https://img.shields.io/badge/java-8-blue.svg)](http://docs.oracle.com/javase/8/docs/api/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/cluttered-cryptocurrency/crypto-genics/master/LICENSE)
 
-[![JitPack](https://img.shields.io/badge/JitPack-master-green.svg)](https://jitpack.io/#cluttered-cryptocurrency/crypto-genics/master-SNAPSHOT)
+[![JitPack](https://jitpack.io/v/cluttered-cryptocurrency/crypto-genics.svg)](https://jitpack.io/#cluttered-cryptocurrency/crypto-genics)
 
 ## Gradle Dependency
 ```groovy
