@@ -21,11 +21,11 @@ public interface MarketManager {
 
     long getBalance();
 
-    void setBalance(final BigDecimal balance);
+    void setBalance(final long balance);
 
     long getShares();
 
-    void setShares(final BigDecimal shares);
+    void setShares(final long shares);
 
     long getMinimumTrade();
 
