@@ -19,15 +19,15 @@ public interface MarketManager {
 
     NeuralNetwork getNeuralNetwork();
 
-    BigDecimal getBalance();
+    long getBalance();
 
     void setBalance(final BigDecimal balance);
 
-    BigDecimal getShares();
+    long getShares();
 
     void setShares(final BigDecimal shares);
 
-    BigDecimal getMinimumTrade();
+    long getMinimumTrade();
 
     MarketSummary getLastSummary();
 
@@ -59,7 +59,7 @@ public interface MarketManager {
         setLastSummary(input);
 
         final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
-        inputsQueueList.add(input.getLast());
+        inputsQueueList.add(Double.longBitsToDouble(input.getLast()));
 
         if(!inputsQueueList.isFull())
             return HOLD;
@@ -72,28 +72,28 @@ public interface MarketManager {
         switch (action) {
             case BUY:
                 incrementBuyAttempts();
-                if (getBalance().compareTo(getMinimumTrade()) < 0) {
+                if (getBalance() < getMinimumTrade()) {
                     throw new LessThanMinimum(BUY);
                 }
                 // TODO: check if can purchase more shares
-                if (getShares().compareTo(BigDecimal.ZERO) == 0) {
+                if (getShares() == 0) {
                     incrementBuys();
                     performBuyAction();
                 } else incrementSellHolds();
                 break;
             case SELL:
                 incrementSellAttempts();
-                final BigDecimal lastBid = BigDecimal.valueOf(getLastSummary().getBid());
-                if (getShares().multiply(lastBid).compareTo(getMinimumTrade()) < 0) {
+                final long lastBid = getLastSummary().getBid();
+                if (getShares() * lastBid < getMinimumTrade()) {
                     throw new LessThanMinimum(SELL);
                 }
-                if(getShares().compareTo(BigDecimal.ZERO) > 0) {
+                if(getShares() > 0) {
                     incrementSells();
                     performSellAction();
                 } else incrementBuyHolds();
                 break;
             default:
-                if(getShares().compareTo(BigDecimal.ZERO) == 0) {
+                if(getShares() == 0) {
                     incrementBuyHolds();
                 } else incrementSellHolds();
                 performHoldAction();

@@ -14,19 +14,19 @@ public class MarketSummary {
     private ObjectId id;
 
     @Property("Last")
-    private Double last;
+    private long last;
 
     @Property("Bid")
-    private Double bid;
+    private long bid;
     @Property("Ask")
-    private Double ask;
+    private long ask;
 
     public MarketSummary() {
         // Morphia Constructor
     }
 
-    public MarketSummary(final ObjectId id, final Double last,
-                         final Double bid, final Double ask) {
+    public MarketSummary(final ObjectId id, final long last,
+                         final long bid, final long ask) {
         this.id = id;
         this.last = last;
         this.bid = bid;
@@ -37,15 +37,15 @@ public class MarketSummary {
         return id;
     }
 
-    public Double getLast() {
+    public long getLast() {
         return last;
     }
 
-    public Double getBid() {
+    public long getBid() {
         return bid;
     }
 
-    public Double getAsk() {
+    public long getAsk() {
         return ask;
     }
 
