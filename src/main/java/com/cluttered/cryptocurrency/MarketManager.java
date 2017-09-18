@@ -72,9 +72,6 @@ public interface MarketManager {
         switch (action) {
             case BUY:
                 incrementBuyAttempts();
-                if (getBalance() < getMinimumTrade()) {
-                    throw new LessThanMinimum(BUY);
-                }
                 // TODO: check if can purchase more shares
                 if (getShares() == 0) {
                     incrementBuys();
