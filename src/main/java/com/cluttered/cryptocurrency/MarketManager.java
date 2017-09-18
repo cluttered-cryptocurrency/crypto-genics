@@ -7,9 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.Action.BUY;
 import static com.cluttered.cryptocurrency.Action.HOLD;
-import static com.cluttered.cryptocurrency.Action.SELL;
 
 public interface MarketManager {
 
@@ -80,10 +78,6 @@ public interface MarketManager {
                 break;
             case SELL:
                 incrementSellAttempts();
-                final long lastBid = getLastSummary().getBid();
-                if (getShares() * lastBid < getMinimumTrade()) {
-                    throw new LessThanMinimum(SELL);
-                }
                 if(getShares() > 0) {
                     incrementSells();
                     performSellAction();
