@@ -40,10 +40,10 @@ public class CircularEvictingQueueList<E> implements Queue<E>, List<E> {
         } catch (final Exception ex) {
             delegateList.add(e);
         }
-        if (!isEmpty() && nextIndex == headIndex)
-            headIndex = (headIndex + 1) % capacity;
         nextIndex = (nextIndex + 1) % capacity;
         size = min(capacity, size + 1);
+        if (isFull())
+            headIndex = nextIndex;
         return true;
     }
 
