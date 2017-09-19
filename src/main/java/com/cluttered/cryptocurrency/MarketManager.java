@@ -57,7 +57,7 @@ public interface MarketManager {
         setLastSummary(input);
 
         final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
-        inputsQueueList.add(Double.longBitsToDouble(input.getLast()));
+        inputsQueueList.add((double) input.getLast());
 
         if(!inputsQueueList.isFull())
             return HOLD;
