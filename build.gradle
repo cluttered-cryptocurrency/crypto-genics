@@ -17,7 +17,7 @@ ext {
 
     slf4jVersion = '1.7.25'
 
-    neuralNetworkVersion = '1.4.0'
+    neuralNetworkVersion = '1.5.0'
     morphiaVersion = '1.3.2'
 
     jmockitVersion = '1.34'
