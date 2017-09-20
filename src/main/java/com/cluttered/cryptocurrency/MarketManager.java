@@ -71,7 +71,7 @@ public interface MarketManager {
             case BUY:
                 incrementBuyAttempts();
                 // TODO: check if can purchase more shares
-                if (getShares() == 0) {
+                if (getShares() == 0 && getBalance() > getLastSummary().getLast()) {
                     incrementBuys();
                     performBuyAction();
                 } else incrementSellHolds();
