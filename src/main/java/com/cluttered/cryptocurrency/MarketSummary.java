@@ -5,6 +5,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity("summaries")
@@ -12,6 +13,9 @@ public class MarketSummary {
 
     @Id
     private ObjectId id;
+
+    @Property("TimeStamp")
+    private Date timestamp;
 
     @Property("Last")
     private long last;
@@ -25,12 +29,8 @@ public class MarketSummary {
         // Morphia Constructor
     }
 
-    public MarketSummary(final ObjectId id, final long last,
-                         final long bid, final long ask) {
-        this.id = id;
-        this.last = last;
-        this.bid = bid;
-        this.ask = ask;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     public ObjectId getId() {
