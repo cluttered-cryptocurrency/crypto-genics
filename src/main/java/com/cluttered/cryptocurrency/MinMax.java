@@ -1,11 +1,8 @@
 package com.cluttered.cryptocurrency;
 
+import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
-import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 public class MinMax {
 
@@ -21,7 +18,7 @@ public class MinMax {
         this.max = max;
     }
 
-    public static MinMax process(final List<MarketSummary> list) {
+    public static MinMax process(final Collection<MarketSummary> list) {
         final DoubleSummaryStatistics stats = list.parallelStream()
                 .map(MarketSummary::getLast)
                 .map(Double::valueOf)
