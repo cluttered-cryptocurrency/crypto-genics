@@ -18,9 +18,9 @@ public class MinMax {
         this.max = max;
     }
 
-    public static MinMax process(final Collection<MarketSummary> list) {
+    public static MinMax process(final Collection<MarketTick> list) {
         final DoubleSummaryStatistics stats = list.parallelStream()
-                .map(MarketSummary::getLast)
+                .map(MarketTick::getLast)
                 .map(Double::valueOf)
                 .collect(Collectors.summarizingDouble(Double::doubleValue));
         return new MinMax(stats.getMin(), stats.getMax());

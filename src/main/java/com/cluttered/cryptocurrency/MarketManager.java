@@ -25,9 +25,9 @@ public interface MarketManager {
 
     long getMinimumTrade();
 
-    MarketSummary getLastSummary();
+    MarketTick getLastSummary();
 
-    void setLastSummary(final MarketSummary lastSummary);
+    void setLastSummary(final MarketTick lastSummary);
 
     void performBuyAction();
 
@@ -51,7 +51,7 @@ public interface MarketManager {
 
     CircularEvictingQueueList<Double> getInputsQueue();
 
-    default Action fire(final MarketSummary input) {
+    default Action fire(final MarketTick input) {
         setLastSummary(input);
 
         final Double normalizedInput = getMinMax().normalize(input.getLast());

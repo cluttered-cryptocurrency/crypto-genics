@@ -8,8 +8,8 @@ import org.mongodb.morphia.annotations.Property;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity("summaries")
-public class MarketSummary {
+@Entity("ticker")
+public class MarketTick {
 
     @Id
     private ObjectId id;
@@ -25,7 +25,7 @@ public class MarketSummary {
     @Property("Ask")
     private long ask;
 
-    public MarketSummary() {
+    public MarketTick() {
         // Morphia Constructor
     }
 
@@ -52,7 +52,7 @@ public class MarketSummary {
     @Override
     public boolean equals(final Object obj) {
         if(Objects.isNull(obj)) return false;
-        final MarketSummary that = (MarketSummary) obj;
+        final MarketTick that = (MarketTick) obj;
         return Objects.equals(this.id, that.id);
     }
 
