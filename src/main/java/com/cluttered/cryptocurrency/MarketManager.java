@@ -1,18 +1,15 @@
 package com.cluttered.cryptocurrency;
 
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.cluttered.cryptocurrency.Action.HOLD;
 
 public interface MarketManager {
 
-    Logger LOG = LoggerFactory.getLogger(MarketManager.class);
+    MinMax getMinMax();
 
     String getMarket();
 
@@ -52,32 +49,21 @@ public interface MarketManager {
 
     void incrementBuyHolds();
 
-    CircularEvictingQueueList<Long> getInputsQueue();
+    CircularEvictingQueueList<Double> getInputsQueue();
 
     default Action fire(final MarketSummary input) {
         setLastSummary(input);
 
-        final CircularEvictingQueueList<Long> inputsQueueList = getInputsQueue();
-        inputsQueueList.add(input.getLast());
+        final Double normalizedInput = getMinMax().normalize(input.getLast());
+
+        final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
+        inputsQueueList.add(normalizedInput);
 
         if(!inputsQueueList.isFull())
             return HOLD;
 
-        final List<Double> normalizedInputs = normalizeInputList(inputsQueueList);
-
-        final List<Double> outputs = getNeuralNetwork().fire(normalizedInputs);
+        final List<Double> outputs = getNeuralNetwork().fire(inputsQueueList);
         return Action.determine(outputs);
-    }
-
-    default List<Double> normalizeInputList(final CircularEvictingQueueList<Long> inputsQueueList) {
-        final MinMax minMax = MinMax.process(inputsQueueList);
-        return inputsQueueList.stream()
-                .map(input -> normalizeInput(input, minMax))
-                .collect(Collectors.toList());
-    }
-
-    default Double normalizeInput(final Long input, final MinMax minMax) {
-        return (input - minMax.getMin()) / (minMax.getMax() - minMax.getMin());
     }
 
     default void performAction(final Action action) {
