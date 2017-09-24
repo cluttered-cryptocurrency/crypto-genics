@@ -25,9 +25,9 @@ public interface MarketManager {
 
     long getMinimumTrade();
 
-    MarketTick getLastSummary();
+    MarketTick getLastTick();
 
-    void setLastSummary(final MarketTick lastSummary);
+    void setLastTick(final MarketTick lastSummary);
 
     void performBuyAction();
 
@@ -52,7 +52,7 @@ public interface MarketManager {
     CircularEvictingQueueList<Double> getInputsQueue();
 
     default Action fire(final MarketTick input) {
-        setLastSummary(input);
+        setLastTick(input);
 
         final Double normalizedInput = getMinMax().normalize(input.getLast());
 
@@ -71,7 +71,7 @@ public interface MarketManager {
             case BUY:
                 incrementBuyAttempts();
                 // TODO: check if can purchase more shares
-                if (getShares() == 0 && getBalance() > getLastSummary().getLast()) {
+                if (getShares() == 0 && getBalance() > getLastTick().getLast()) {
                     incrementBuys();
                     performBuyAction();
                 } else incrementSellHolds();
