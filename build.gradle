@@ -1,5 +1,5 @@
 group 'com.cluttered.cryptocurrency'
-version '8.1.0'
+version '8.2.0'
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -17,7 +17,7 @@ ext {
 
     slf4jVersion = '1.7.25'
 
-    neuralNetworkVersion = '2.1.1'
+    neuralNetworkVersion = '3.0.0'
     morphiaVersion = '1.3.2'
 
     jmockitVersion = '1.34'
