@@ -1,5 +1,5 @@
 group 'com.cluttered.cryptocurrency'
-version '8.2.0'
+version '9.0.0'
 
 apply plugin: 'java'
 apply plugin: 'idea'

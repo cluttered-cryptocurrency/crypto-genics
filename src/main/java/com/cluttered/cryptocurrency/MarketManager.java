@@ -9,8 +9,6 @@ import static com.cluttered.cryptocurrency.Action.HOLD;
 
 public interface MarketManager {
 
-    MinMax getMinMax();
-
     String getMarket();
 
     NeuralNetwork getNeuralNetwork();
@@ -27,7 +25,11 @@ public interface MarketManager {
 
     MarketTick getLastTick();
 
-    void setLastTick(final MarketTick lastSummary);
+    void setLastTick(final MarketTick lastTick);
+
+    MarketTick getPreviousTick();
+
+    void setPreviousTick(final MarketTick previousTick);
 
     void performBuyAction();
 
@@ -52,9 +54,10 @@ public interface MarketManager {
     CircularEvictingQueueList<Double> getInputsQueue();
 
     default Action fire(final MarketTick input) {
+        setPreviousTick(getLastTick());
         setLastTick(input);
 
-        final Double normalizedInput = getMinMax().normalize(input.getLast());
+        final Double normalizedInput = Math.log(getLastTick().getLast()/getPreviousTick().getLast());
 
         final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
         inputsQueueList.add(normalizedInput);
