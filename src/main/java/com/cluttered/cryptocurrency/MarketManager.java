@@ -57,6 +57,10 @@ public interface MarketManager {
         setPreviousTick(getLastTick());
         setLastTick(input);
 
+        if(getPreviousTick() == null) {
+            return HOLD;
+        }
+
         final Double normalizedInput = Math.log(getLastTick().getLast()/getPreviousTick().getLast());
 
         final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
