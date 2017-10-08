@@ -1,8 +1,6 @@
 package com.cluttered.cryptocurrency;
 
 import java.util.Collection;
-import java.util.DoubleSummaryStatistics;
-import java.util.stream.Collectors;
 
 public class MinMax {
 
@@ -18,12 +16,22 @@ public class MinMax {
         this.max = max;
     }
 
-    public static MinMax process(final Collection<MarketTick> list) {
-        final DoubleSummaryStatistics stats = list.parallelStream()
-                .map(MarketTick::getLast)
-                .map(Double::valueOf)
-                .collect(Collectors.summarizingDouble(Double::doubleValue));
-        return new MinMax(stats.getMin(), stats.getMax());
+    public static MinMax process(final Collection<MarketTick> inputTicks) {
+        Double min = Double.POSITIVE_INFINITY;
+        Double max = Double.NEGATIVE_INFINITY;
+
+        MarketTick previous = null;
+        for(final MarketTick tick : inputTicks) {
+            if(previous != null) {
+                final Double percentDelta = tick.getLast() / ((double) previous.getLast());
+                final Double logarithm = Math.log(percentDelta);
+                min = Math.min(min, logarithm);
+                max = Math.max(max, logarithm);
+            }
+            previous = tick;
+        }
+
+        return new MinMax(min, max);
     }
 
     public Double normalize(final double input) {
