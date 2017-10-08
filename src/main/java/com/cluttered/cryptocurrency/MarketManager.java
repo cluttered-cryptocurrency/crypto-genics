@@ -9,6 +9,8 @@ import static com.cluttered.cryptocurrency.Action.HOLD;
 
 public interface MarketManager {
 
+    MinMax getMinMax();
+
     String getMarket();
 
     NeuralNetwork getNeuralNetwork();
@@ -62,7 +64,8 @@ public interface MarketManager {
         }
 
         final Double percentDelta = getLastTick().getLast() / ((double) getPreviousTick().getLast());
-        final Double normalizedInput = Math.log(percentDelta);
+        final Double logarithm = Math.log(percentDelta);
+        final Double normalizedInput = getMinMax().normalize(logarithm);
 
         final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
         inputsQueueList.add(normalizedInput);
