@@ -61,7 +61,8 @@ public interface MarketManager {
             return HOLD;
         }
 
-        final Double normalizedInput = Math.log(getLastTick().getLast()/getPreviousTick().getLast());
+        final Double percentDelta = getLastTick().getLast() / ((double) getPreviousTick().getLast());
+        final Double normalizedInput = Math.log(percentDelta);
 
         final CircularEvictingQueueList<Double> inputsQueueList = getInputsQueue();
         inputsQueueList.add(normalizedInput);
